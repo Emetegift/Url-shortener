@@ -20,7 +20,7 @@ def analytics():
 
 @shortener.errorhandler(404)
 def page_not_found(e):
-    return "<h1>Page Not Found<h1/>", 404,
+    return "<h1>Page Not Found, 404<h1/>", 404,
 
 
 
