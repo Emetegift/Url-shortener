@@ -29,7 +29,9 @@ def index():
 
 @shortener.route('/analytics')
 def analytics():
-    return ''
+    links = Link.query.all()
+    
+    return render_template('analytics.html',links=links)
 
 @shortener.errorhandler(404)
 def page_not_found(e):
