@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title%}
+  Url shortener
+{% endblock %}
+{% block content %}
+<form method="POST" action="{{url_for('shortener.create_link')}}" style="max-width:800px; margin:50px;">
+    <div class="form-group">
+      <label for="original-url" style="font-size:20px;">
+        Original URL
+      </label>
+      <input type="text"  class="form-control" placeholder="Enter URL" name="original_url"/>
+      <button type='submit' class='btn btn-primary'>Submit</button>
+    </div>
+<form/>
+    
+{% endblock %}

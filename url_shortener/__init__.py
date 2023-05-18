@@ -1,6 +1,6 @@
 from flask import Flask
 from .extensions import db
-from .routes import shortner
+from .routes import shortener
 
 def create_app(config_file="settings.py"):
     app = Flask(__name__)
@@ -9,7 +9,14 @@ def create_app(config_file="settings.py"):
     
     db.init_app(app)
     
-    app.register_blueprint(shortner)
+    app.register_blueprint(shortener)
     
     return app
     
+    #To create database
+# from url_shortener import create_app
+# from url_shortener.extensions import db
+# from url_shortener.models import Link, User
+# app = create_app()
+# with app.app_context():
+    # db.create_all()
