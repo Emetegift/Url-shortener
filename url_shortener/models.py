@@ -2,7 +2,8 @@ from .extensions import db
 from datetime import datetime
 import string
 from random import choices #this is used to generate random characters
-from flask_login import UserMixin
+from flask_login import UserMixin, LoginManager
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class Link(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -29,12 +30,13 @@ class Link(db.Model):
             return self.generate_short_link()
         return short_url
         
-        
-        
+    
+    
+login_manager = LoginManager()
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return User.query.get(int(user_id))
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 class User(db.Model, UserMixin):
@@ -44,3 +46,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(length=60), nullable=False)
     password = db.Column(db.String(length=60), nullable=False)
     link = db.relationship("Link", backref="user.link", lazy=True)
+    
+    
+    def check_password_correction(self, attempted_password):
+        return check_password_hash(self.password_hash, attempted_password)

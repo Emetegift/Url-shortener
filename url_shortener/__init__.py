@@ -1,9 +1,17 @@
 from flask import Flask
 from .extensions import db
+from .models import User, Link
+from flask_login import LoginManager, login_user
 from .routes import shortener
 
 def create_app(config_file="settings.py"):
     app = Flask(__name__)
+    
+    app.config["SECRET_KEY"] = "secretkey"
+    
+    login_manager = LoginManager(app)
+        
+    
     
     app.config.from_pyfile(config_file)
     
